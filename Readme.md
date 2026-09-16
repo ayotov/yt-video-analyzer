@@ -8,7 +8,8 @@
 
 ## Начин на използване
 
-`export DEEPSEEK_API_KEY="твоят_api_ключ"<br />
+`export DEEPSEEK_API_KEY="твоят_api_ключ"
+
 python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"`
 
 ## Изисквания 
