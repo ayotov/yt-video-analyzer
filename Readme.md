@@ -84,8 +84,8 @@ python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"`
 ## Генерирани файлове
 
 Запазват следните файлове:
-
-`xxxxxxxxx_subtitles.txt	- Субтитри с таймстампи [ММ:СС]
+`
+xxxxxxxxx_subtitles.txt	- Субтитри с таймстампи [ММ:СС]
 
 xxxxxxxxx_transcript.txt	- Чист текст без таймстампи
 
