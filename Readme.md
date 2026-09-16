@@ -10,6 +10,13 @@ export DEEPSEEK_API_KEY="твоят_api_ключ"
 python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"
 
 
+### Изисквания 
+
+За нормална работа трябва да бъдат инсталирани следните библиотеки:
+
+pip install yt-dlp stop-words requests
+
+
 # Интерфейс
 
 Резултатите се визуализират на екрана в следния вид:
@@ -102,10 +109,5 @@ xxxxxxxxx_ai_analysis.json	AI резюме + теми в JSON формат
 xxxxxxxxx_metadata.txt	(ако решиш да добавиш запис на метаданните)
 
 
-# Изисквания 
-
-За нормална работа трябва да бъдат инсталирани следните библиотеки:
-
-pip install yt-dlp stop-words requests
 
 
