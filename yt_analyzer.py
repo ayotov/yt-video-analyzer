@@ -162,6 +162,39 @@ def print_metadata(meta: dict):
         for line in meta["description"].splitlines():
             print(f"  {line}")
 
+def save_metadata(video_id: str, meta: dict) -> str | None:
+    """Запазва метаданните на видеото в текстов файл."""
+    if not meta:
+        return None
+
+    filename = f"{video_id}_metadata.txt"
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(f"Заглавие:         {meta.get('title', '')}\n")
+        f.write(f"Канал:            {meta.get('uploader', '')}\n")
+        f.write(f"Дата на качване:  {format_date(meta.get('upload_date', ''))}\n")
+        f.write(f"Продължителност:  {format_duration(meta.get('duration'))}\n")
+
+        if meta.get("is_live"):
+            f.write(f"На живо:          да\n")
+        if meta.get("view_count") is not None:
+            f.write(f"Гледания:         {meta['view_count']:,}\n")
+        if meta.get("like_count") is not None:
+            f.write(f"Харесвания:       {meta['like_count']:,}\n")
+        if meta.get("comment_count") is not None:
+            f.write(f"Коментари:        {meta['comment_count']:,}\n")
+        if meta.get("categories"):
+            f.write(f"Категория:        {', '.join(meta['categories'])}\n")
+        if meta.get("tags"):
+            f.write(f"Тагове:           {', '.join(meta['tags'])}\n")
+
+        f.write(f"URL:              {meta.get('webpage_url', '')}\n")
+
+        if meta.get("description"):
+            f.write(f"\n--- Описание ---\n")
+            f.write(meta["description"])
+            f.write("\n")
+
+    return filename
 
 # ============================================================
 # 4. СУБТИТРИ С ТАЙМСТАМПИ
@@ -518,11 +551,16 @@ def main():
     with open(f"{video_id}_transcript.txt", "w", encoding="utf-8") as f:
         f.write(full_text)
 
+    meta_file = save_metadata(video_id, meta)
+
     section("Запазени файлове", "💾")
     print(f"\n  📄 {sub_file}")
     print(f"     └─ {len(segments):,} сегмента с таймстампи")
     print(f"  📄 {video_id}_transcript.txt")
     print(f"     └─ {len(full_text):,} знака чист текст")
+    if meta_file:
+        print(f"  📄 {meta_file}")
+        print(f"     └─ заглавие, канал, дата, описание и др.")
 
     # ---- AI анализ ----
     section("AI анализ (DeepSeek)", "🤖")
@@ -546,7 +584,7 @@ def main():
 
     # ---- Край ----
     print(f"\n{'═' * 64}")
-    print(f"  ✅  КРАЙ")
+    print(f"  ✅  ГОТОВО")
     print(f"{'═' * 64}\n")
 
 
