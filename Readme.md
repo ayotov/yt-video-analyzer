@@ -22,8 +22,7 @@ python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"</code>
 
 Резултатите се визуализират на екрана в следния вид:
 
-<code>
-🔗 URL: https://www.youtube.com/watch?v=xxxxxxxxx
+<code>🔗 URL: https://www.youtube.com/watch?v=xxxxxxxxx
 ✅ Video ID: xxxxxxxxx
 ════════════════════════════════════════════════════════════════
   📺 ИНФОРМАЦИЯ ЗА ВИДЕОТО
@@ -84,6 +83,7 @@ python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"</code>
 # Генерирани файлове
 
 Запазват следните файлове:
+
 <code>xxxxxxxxx_subtitles.txt	- Субтитри с таймстампи [ММ:СС]<br />
 xxxxxxxxx_transcript.txt	- Чист текст без таймстампи<br />
 xxxxxxxxx_ai_analysis.json	- AI резюме + теми в JSON формат<br />
