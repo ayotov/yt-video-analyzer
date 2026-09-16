@@ -9,7 +9,7 @@
 ## Начин на използване
 
 <code>export DEEPSEEK_API_KEY="твоят_api_ключ"<br />
-python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"</code>
+ python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"</code>
 
 ## Изисквания 
 
