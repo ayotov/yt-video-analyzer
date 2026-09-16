@@ -84,14 +84,14 @@ python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"`
 ## Генерирани файлове
 
 Запазват следните файлове:
-`
-xxxxxxxxx_subtitles.txt	- Субтитри с таймстампи [ММ:СС]
+
+<code>xxxxxxxxx_subtitles.txt	- Субтитри с таймстампи [ММ:СС]
 
 xxxxxxxxx_transcript.txt	- Чист текст без таймстампи
 
 xxxxxxxxx_ai_analysis.json	- AI резюме + теми в JSON формат
 
-xxxxxxxxx_metadata.txt	- (опционално, запис на метаданните)`
+xxxxxxxxx_metadata.txt	- (опционално, запис на метаданните)</code>
 
 
 
