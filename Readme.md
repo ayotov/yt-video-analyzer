@@ -23,7 +23,7 @@ python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"`
 
 Резултатите се визуализират на екрана в следния вид:
 
-`🔗 URL: https://www.youtube.com/watch?v=xxxxxxxxx
+<code>🔗 URL: https://www.youtube.com/watch?v=xxxxxxxxx
 ✅ Video ID: xxxxxxxxx
 ════════════════════════════════════════════════════════════════
   📺 ИНФОРМАЦИЯ ЗА ВИДЕОТО
@@ -79,20 +79,14 @@ python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"`
   ...
 ════════════════════════════════════════════════════════════════
   ✅  КРАЙ
-════════════════════════════════════════════════════════════════`
+════════════════════════════════════════════════════════════════</code>
 
 ## Генерирани файлове
 
 Запазват следните файлове:
 
 <code>xxxxxxxxx_subtitles.txt	- Субтитри с таймстампи [ММ:СС]
-
 xxxxxxxxx_transcript.txt	- Чист текст без таймстампи
-
-xxxxxxxxx_ai_analysis.json	- AI резюме + теми в JSON формат
-
-xxxxxxxxx_metadata.txt	- (опционално, запис на метаданните)</code>
-
-
+xxxxxxxxx_ai_analysis.json	- AI резюме + теми в JSON формат</code>
 
 
