@@ -8,21 +8,21 @@
 
 ## Начин на използване
 
-<code>export DEEPSEEK_API_KEY="твоят_api_ключ"<br />
-python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"</code>
+`export DEEPSEEK_API_KEY="твоят_api_ключ"<br />
+python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"`
 
 ## Изисквания 
 
 За нормална работа трябва да бъдат инсталирани следните библиотеки:
 
-<code>pip install yt-dlp stop-words requests</code>
+`pip install yt-dlp stop-words requests`
 
 
 ## Интерфейс
 
 Резултатите се визуализират на екрана в следния вид:
 
-<code>🔗 URL: https://www.youtube.com/watch?v=xxxxxxxxx
+`🔗 URL: https://www.youtube.com/watch?v=xxxxxxxxx
 ✅ Video ID: xxxxxxxxx
 ════════════════════════════════════════════════════════════════
   📺 ИНФОРМАЦИЯ ЗА ВИДЕОТО
@@ -78,16 +78,19 @@ python3 yt_analyzer.py "https://www.youtube.com/watch?v=xxxxxxxxx"</code>
   ...
 ════════════════════════════════════════════════════════════════
   ✅  КРАЙ
-════════════════════════════════════════════════════════════════</code>
+════════════════════════════════════════════════════════════════`
 
 ## Генерирани файлове
 
 Запазват следните файлове:
 
-`<code>xxxxxxxxx_subtitles.txt	- Субтитри с таймстампи [ММ:СС]<br />
-xxxxxxxxx_transcript.txt	- Чист текст без таймстампи<br />
-xxxxxxxxx_ai_analysis.json	- AI резюме + теми в JSON формат<br />
-xxxxxxxxx_metadata.txt	- (опционално, запис на метаданните)</code>`
+`xxxxxxxxx_subtitles.txt	- Субтитри с таймстампи [ММ:СС]
+
+xxxxxxxxx_transcript.txt	- Чист текст без таймстампи
+
+xxxxxxxxx_ai_analysis.json	- AI резюме + теми в JSON формат
+
+xxxxxxxxx_metadata.txt	- (опционално, запис на метаданните)`
 
 
 
