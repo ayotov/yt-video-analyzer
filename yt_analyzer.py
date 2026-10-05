@@ -367,24 +367,51 @@ def analyze_with_deepseek(text: str,
         print(f"  ℹ️  Текстът е отрязан до 30 000 знака (от общо {len(text):,}).")
 
     system_prompt = (
-        "Ти си опитен анализатор на подкаст / новинарско съдържание. Получаваш транскрипт "
-        "на видео (на български език) и трябва да върнеш СТРУКТУРИРАН JSON отговор "
-        "с точно два ключа: 'summary' и 'topics'.\n\n"
+        "Ти си опитен анализатор на новинарско съдържание с познания по "
+        "психология на комуникацията и медийно въздействие. Получаваш "
+        "транскрипт на видео (на български език) и трябва да върнеш "
+        "СТРУКТУРИРАН JSON отговор с точно три ключа: "
+        "'summary', 'topics' и 'psychology'.\n\n"
         "ПРАВИЛА:\n"
         f"1. 'summary' – кратко резюме на български език, не повече от "
-        f"{max_summary_sentences} изречения. Опиши с прости думи за какво става "
-        "дума във видеото.\n"
-        f"2. 'topics' – списък от не повече от {max_topics} теми/сфери, за които "
-        "реално се говори във видеото. Всяка тема е обект с полета:\n"
-        "   - 'name': кратко име (2-4 думи), напр. 'Политика', 'Икономика'.\n"
-        "   - 'description': 1-2 изречения на български какво точно се казва.\n"
-        "   - 'keywords': списък от 5-8 конкретни думи/фрази от текста.\n"
-        "   - 'importance': 'висока', 'средна' или 'ниска'.\n\n"
+        f"{max_summary_sentences} изречения.\n"
+        f"2. 'topics' – списък от не повече от {max_topics} теми/сфери, "
+        "за които реално се говори. Всяка тема е обект с полета:\n"
+        "   - 'name': кратко име (2-4 думи).\n"
+        "   - 'description': 1-2 изречения какво точно се казва.\n"
+        "   - 'keywords': списък от 5-8 конкретни думи/фрази.\n"
+        "   - 'importance': 'висока', 'средна' или 'ниска'.\n"
+        "3. 'psychology' – психологически и комуникационен анализ. "
+        "Обект със следните полета:\n"
+        "   - 'emotional_tone': кратко описание на преобладаващия "
+        "емоционален тон (напр. 'неутрален', 'тревожен', 'алармиращ', "
+        "'успокояващ', 'смесен').\n"
+        "   - 'emotions_detected': списък от емоции, които текстът "
+        "предизвиква или отразява (напр. 'тревога', 'надежда', 'гняв', "
+        "'страх', 'съчувствие', 'неутралност').\n"
+        "   - 'target_audience': обект с полета:\n"
+        "       * 'segments': списък от вероятни аудиторни сегменти "
+        "(напр. 'пенсионери', 'работещи родители', 'бизнес среди', "
+        "'млади хора', 'политически ангажирани граждани').\n"
+        "       * 'reasoning': 2-3 изречения защо точно тези сегменти.\n"
+        "   - 'usefulness': за какво би била полезна информацията на "
+        "тези аудитории (2-3 изречения).\n"
+        "   - 'potential_impact': списък от потенциални въздействия "
+        "върху аудиторията – всеки е обект с полета 'effect' (кратко "
+        "описание) и 'audience' (за кого се отнася).\n"
+        "   - 'polarizing_topics': списък от теми, които биха могли да "
+        "предизвикат поляризация или силна реакция.\n"
+        "   - 'psychological_mechanisms': списък от използвани "
+        "психологически механизми (напр. 'framing', 'priming', "
+        "'емоционално зареждане', 'социално сравнение').\n"
+        "   - 'caveats': задължително 1-2 изречения, че това е "
+        "спекулативен анализ на база съдържание, а не научно "
+        "изследване на реалната аудитория.\n\n"
         "ВАЖНО:\n"
-        "- Открий темите от САМИЯ ТЕКСТ, не използвай предварителен списък.\n"
-        "- Подреди темите по важност (най-важната първа).\n"
-        "- Отговорът ТРЯБВА да е валиден JSON, без обяснения извън JSON.\n"
-        "- Не използвай markdown форматиране."
+        "- Открий темите от САМИЯ ТЕКСТ.\n"
+        "- Подреди темите по важност.\n"
+        "- Бъди конкретен – използвай примери от текста.\n"
+        "- Отговорът ТРЯБВА да е валиден JSON, без обяснения извън JSON."
     )
 
     payload = {
@@ -397,7 +424,7 @@ def analyze_with_deepseek(text: str,
             )},
         ],
         "temperature": 0.3,
-        "max_tokens": 2500,
+        "max_tokens": 4000,
         "response_format": {"type": "json_object"},
     }
 
@@ -451,14 +478,15 @@ def print_ai_result(result: dict):
     summary = (result.get("summary") or "").strip()
     if summary:
         # Пренасяме текста на блокове по ~80 знака за четимост
-        import textwrap
-        for paragraph in summary.split("\n"):
-            if paragraph.strip():
-                wrapped = textwrap.fill(paragraph.strip(),
-                                        width=68,
-                                        initial_indent="  ",
-                                        subsequent_indent="  ")
-                print(f"\n{wrapped}")
+        print(f"\n{summary}")
+        #import textwrap
+        #for paragraph in summary.split("\ n"):
+        #    if paragraph.strip():
+        #        wrapped = textwrap.fill(paragraph.strip(),
+        #                                width=68,
+        #                                initial_indent="  ",
+        #                                subsequent_indent="  ")
+        #        print(f"\n{wrapped}")
     else:
         print("\n  (няма резюме)")
 
@@ -488,6 +516,78 @@ def print_ai_result(result: dict):
             print(wrapped)
         if kws:
             print(f"      Ключови думи: {', '.join(kws)}")
+
+
+def print_psychology_analysis(result: dict):
+    """Извежда психологическия анализ от AI резултата."""
+    if not result:
+        return
+
+    psy = result.get("psychology")
+    if not psy:
+        return
+
+    section("Психологически и комуникационен анализ", "🧠")
+
+    # ---- Емоционален тон ----
+    tone = psy.get("emotional_tone", "")
+    if tone:
+        print(f"\n  😊 Емоционален тон: {tone}")
+
+    # ---- Открити емоции ----
+    emotions = psy.get("emotions_detected") or []
+    if emotions:
+        print(f"\n  💭 Открити емоции:")
+        for e in emotions:
+            print(f"      • {e}")
+
+    # ---- Целева аудитория ----
+    aud = psy.get("target_audience") or {}
+    segments = aud.get("segments") or []
+    reasoning = aud.get("reasoning", "")
+
+    if segments or reasoning:
+        print(f"\n  👥 Вероятна целева аудитория:")
+        for s in segments:
+            print(f"      • {s}")
+        if reasoning:
+            print(f"\n      Обосновка: {reasoning}")
+
+    # ---- Полезност ----
+    usefulness = psy.get("usefulness", "")
+    if usefulness:
+        print(f"\n  💡 Полезност на информацията:")
+        print(f"      {usefulness}")
+
+    # ---- Потенциално въздействие ----
+    impacts = psy.get("potential_impact") or []
+    if impacts:
+        print(f"\n  ⚡ Потенциално въздействие:")
+        for imp in impacts:
+            effect = imp.get("effect", "")
+            audience = imp.get("audience", "")
+            print(f"      • {effect}")
+            if audience:
+                print(f"        (за: {audience})")
+
+    # ---- Поляризиращи теми ----
+    polarizing = psy.get("polarizing_topics") or []
+    if polarizing:
+        print(f"\n  ⚠️  Поляризиращи теми:")
+        for p in polarizing:
+            print(f"      • {p}")
+
+    # ---- Психологически механизми ----
+    mechanisms = psy.get("psychological_mechanisms") or []
+    if mechanisms:
+        print(f"\n  🔬 Психологически механизми:")
+        for m in mechanisms:
+            print(f"      • {m}")
+
+    # ---- Предупреждение ----
+    caveats = psy.get("caveats", "")
+    if caveats:
+        print(f"\n  ℹ️  {caveats}")
 
 
 # ============================================================
@@ -576,6 +676,7 @@ def main():
 
         # Изведи красиво
         print_ai_result(ai_result)
+        print_psychology_analysis(ai_result)
     else:
         print("  ⚠️  AI анализът не успя.")
 
